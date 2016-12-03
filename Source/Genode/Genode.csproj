@@ -1,0 +1,385 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <BaseIntermediateOutputPath>..\..\Temp\</BaseIntermediateOutputPath>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E128B48A-8D03-432C-8630-1FB587252FB9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Genode</RootNamespace>
+    <AssemblyName>Genode</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <BaseIntermediateOutputPath>..\..\Temp\</BaseIntermediateOutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>..\..\Build\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DocumentationFile>..\..\Build\Debug\Genode.xml</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <WarningLevel>3</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <BaseIntermediateOutputPath>..\..\Temp\</BaseIntermediateOutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>..\..\Build\Release\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>../../Build/Debug/Cgen.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <BaseIntermediateOutputPath>..\..\Temp\</BaseIntermediateOutputPath>
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>..\..\Build\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DocumentationFile>..\..\Build\Debug\Genode.xml</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <WarningLevel>3</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <BaseIntermediateOutputPath>..\..\Temp\</BaseIntermediateOutputPath>
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>..\..\Build\Release\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>../../Build/Debug/Cgen.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="OpenTK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\..\Dependencies\Packages\OpenTK.2.0.0\lib\net20\OpenTK.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Audio\AudioDevice.cs" />
+    <Compile Include="Audio\Listener.cs" />
+    <Compile Include="Audio\Reader\Built-in\OggReader.cs" />
+    <Compile Include="Audio\Reader\Built-in\WavReader.cs" />
+    <Compile Include="Audio\Reader\Decoders.cs" />
+    <Compile Include="Audio\Reader\SampleInfo.cs" />
+    <Compile Include="Audio\Reader\SoundReader.cs" />
+    <Compile Include="Audio\Sound.cs" />
+    <Compile Include="Audio\SoundBuffer.cs" />
+    <Compile Include="Audio\Stream\AudioChunk.cs" />
+    <Compile Include="Audio\Stream\SoundStream.cs" />
+    <Compile Include="Audio\Source\SoundSource.cs" />
+    <Compile Include="Audio\Source\SourceStatus.cs" />
+    <Compile Include="Dependencies\NVorbis\BufferedReadStream.cs" />
+    <Compile Include="Dependencies\NVorbis\DataPacket.cs" />
+    <Compile Include="Dependencies\NVorbis\Huffman.cs" />
+    <Compile Include="Dependencies\NVorbis\IContainerReader.cs" />
+    <Compile Include="Dependencies\NVorbis\IPacketProvider.cs" />
+    <Compile Include="Dependencies\NVorbis\IVorbisStreamStatus.cs" />
+    <Compile Include="Dependencies\NVorbis\Mdct.cs" />
+    <Compile Include="Dependencies\NVorbis\NewStreamEventArgs.cs" />
+    <Compile Include="Dependencies\NVorbis\Ogg\OggContainerReader.cs" />
+    <Compile Include="Dependencies\NVorbis\Ogg\OggCrc.cs" />
+    <Compile Include="Dependencies\NVorbis\Ogg\OggPacket.cs" />
+    <Compile Include="Dependencies\NVorbis\Ogg\OggPacketReader.cs" />
+    <Compile Include="Dependencies\NVorbis\Ogg\OggPageFlags.cs" />
+    <Compile Include="Dependencies\NVorbis\ParameterChangeEventArgs.cs" />
+    <Compile Include="Dependencies\NVorbis\RingBuffer.cs" />
+    <Compile Include="Dependencies\NVorbis\StreamReadBuffer.cs" />
+    <Compile Include="Dependencies\NVorbis\Utils.cs" />
+    <Compile Include="Dependencies\NVorbis\VorbisCodebook.cs" />
+    <Compile Include="Dependencies\NVorbis\VorbisFloor.cs" />
+    <Compile Include="Dependencies\NVorbis\VorbisMapping.cs" />
+    <Compile Include="Dependencies\NVorbis\VorbisMode.cs" />
+    <Compile Include="Dependencies\NVorbis\VorbisReader.cs" />
+    <Compile Include="Dependencies\NVorbis\VorbisResidue.cs" />
+    <Compile Include="Dependencies\NVorbis\VorbisStreamDecoder.cs" />
+    <Compile Include="Dependencies\NVorbis\VorbisTime.cs" />
+    <Compile Include="Graphics\FrameBuffer\FrameBufferRenderer.cs" />
+    <Compile Include="Graphics\FrameBuffer\IRenderTextureImplementation.cs" />
+    <Compile Include="Graphics\FrameBuffer\LegacyFrameRenderer.cs" />
+    <Compile Include="Graphics\FrameBuffer\RenderTexture.cs" />
+    <Compile Include="Graphics\Transform.cs" />
+    <Compile Include="Dependencies\Action.cs" />
+    <Compile Include="Dependencies\SharpFont\AutoHinterScript.cs" />
+    <Compile Include="Dependencies\SharpFont\BBox.cs" />
+    <Compile Include="Dependencies\SharpFont\Bdf\Internal\PropertyRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Bdf\Property.cs" />
+    <Compile Include="Dependencies\SharpFont\Bdf\PropertyType.cs" />
+    <Compile Include="Dependencies\SharpFont\BitmapGlyph.cs" />
+    <Compile Include="Dependencies\SharpFont\BitmapSize.cs" />
+    <Compile Include="Dependencies\SharpFont\Cache\CMapCache.cs" />
+    <Compile Include="Dependencies\SharpFont\Cache\FaceRequester.cs" />
+    <Compile Include="Dependencies\SharpFont\Cache\ImageCache.cs" />
+    <Compile Include="Dependencies\SharpFont\Cache\ImageType.cs" />
+    <Compile Include="Dependencies\SharpFont\Cache\Internal\CMapCacheRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Cache\Internal\ImageCacheRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Cache\Internal\ImageTypeRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Cache\Internal\ManagerRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Cache\Internal\NodeRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Cache\Internal\SBitCacheRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Cache\Internal\SBitRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Cache\Internal\ScalerRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Cache\Manager.cs" />
+    <Compile Include="Dependencies\SharpFont\Cache\Node.cs" />
+    <Compile Include="Dependencies\SharpFont\Cache\SBit.cs" />
+    <Compile Include="Dependencies\SharpFont\Cache\SBitCache.cs" />
+    <Compile Include="Dependencies\SharpFont\Cache\Scaler.cs" />
+    <Compile Include="Dependencies\SharpFont\Cff\HintingEngine.cs" />
+    <Compile Include="Dependencies\SharpFont\CharMap.cs" />
+    <Compile Include="Dependencies\SharpFont\ClassicKernValidationFlags.cs" />
+    <Compile Include="Dependencies\SharpFont\Data.cs" />
+    <Compile Include="Dependencies\SharpFont\EmbeddingTypes.cs" />
+    <Compile Include="Dependencies\SharpFont\Encoding.cs" />
+    <Compile Include="Dependencies\SharpFont\Error.cs" />
+    <Compile Include="Dependencies\SharpFont\Face.cs" />
+    <Compile Include="Dependencies\SharpFont\FaceFlags.cs" />
+    <Compile Include="Dependencies\SharpFont\Fixed16Dot16.cs" />
+    <Compile Include="Dependencies\SharpFont\Fixed26Dot6.cs" />
+    <Compile Include="Dependencies\SharpFont\Fixed2Dot14.cs" />
+    <Compile Include="Dependencies\SharpFont\Fnt\Header.cs" />
+    <Compile Include="Dependencies\SharpFont\Fnt\Internal\HeaderRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Fnt\WinFntID.cs" />
+    <Compile Include="Dependencies\SharpFont\FreeTypeException.cs" />
+    <Compile Include="Dependencies\SharpFont\FT.Internal.cs" />
+    <Compile Include="Dependencies\SharpFont\FT.Public.cs" />
+    <Compile Include="Dependencies\SharpFont\FTBitmap.cs" />
+    <Compile Include="Dependencies\SharpFont\FTList.cs" />
+    <Compile Include="Dependencies\SharpFont\FTMatrix.cs" />
+    <Compile Include="Dependencies\SharpFont\FTSize.cs" />
+    <Compile Include="Dependencies\SharpFont\FTStream.cs" />
+    <Compile Include="Dependencies\SharpFont\FTUnitVector.cs" />
+    <Compile Include="Dependencies\SharpFont\FTVector.cs" />
+    <Compile Include="Dependencies\SharpFont\FTVector26Dot6.cs" />
+    <Compile Include="Dependencies\SharpFont\Gasp.cs" />
+    <Compile Include="Dependencies\SharpFont\Generic.cs" />
+    <Compile Include="Dependencies\SharpFont\Glyph.cs" />
+    <Compile Include="Dependencies\SharpFont\GlyphBBoxMode.cs" />
+    <Compile Include="Dependencies\SharpFont\GlyphFormat.cs" />
+    <Compile Include="Dependencies\SharpFont\GlyphMetrics.cs" />
+    <Compile Include="Dependencies\SharpFont\GlyphSlot.cs" />
+    <Compile Include="Dependencies\SharpFont\GlyphToScriptMapProperty.cs" />
+    <Compile Include="Dependencies\SharpFont\IncreaseXHeightProperty.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\BitmapGlyphRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\BitmapRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\BitmapSizeRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\CharMapRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\FaceRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\GenericRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\GlyphMetricsRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\GlyphRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\GlyphSlotRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\GlyphToScriptMapPropertyRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\IncreaseXHeightPropertyRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\ListNodeRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\ListRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\MemoryRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\ModuleClassRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\NativeObject.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\NativeReference.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\OpenArgsRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\OutlineFuncsRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\OutlineGlyphRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\OutlineRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\ParameterRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\RasterFuncsRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\RasterParamsRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\RendererClassRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\SizeMetricsRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\SizeRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\SizeRequestRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\SpanRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\StreamDescRec.cs" />
+    <Compile Include="Dependencies\SharpFont\Internal\StreamRec.cs" />
+    <Compile Include="Dependencies\SharpFont\KerningMode.cs" />
+    <Compile Include="Dependencies\SharpFont\LcdFilter.cs" />
+    <Compile Include="Dependencies\SharpFont\Library.cs" />
+    <Compile Include="Dependencies\SharpFont\ListNode.cs" />
+    <Compile Include="Dependencies\SharpFont\LoadFlags.cs" />
+    <Compile Include="Dependencies\SharpFont\LoadTarget.cs" />
+    <Compile Include="Dependencies\SharpFont\Memory.cs" />
+    <Compile Include="Dependencies\SharpFont\Module.cs" />
+    <Compile Include="Dependencies\SharpFont\ModuleClass.cs" />
+    <Compile Include="Dependencies\SharpFont\MultipleMasters\Internal\MMAxisRec.cs" />
+    <Compile Include="Dependencies\SharpFont\MultipleMasters\Internal\MMVarRec.cs" />
+    <Compile Include="Dependencies\SharpFont\MultipleMasters\Internal\MultiMasterRec.cs" />
+    <Compile Include="Dependencies\SharpFont\MultipleMasters\Internal\VarAxisRec.cs" />
+    <Compile Include="Dependencies\SharpFont\MultipleMasters\Internal\VarNamedStyleRec.cs" />
+    <Compile Include="Dependencies\SharpFont\MultipleMasters\MMAxis.cs" />
+    <Compile Include="Dependencies\SharpFont\MultipleMasters\MMVar.cs" />
+    <Compile Include="Dependencies\SharpFont\MultipleMasters\MultiMaster.cs" />
+    <Compile Include="Dependencies\SharpFont\MultipleMasters\VarAxis.cs" />
+    <Compile Include="Dependencies\SharpFont\MultipleMasters\VarNamedStyle.cs" />
+    <Compile Include="Dependencies\SharpFont\OpenArgs.cs" />
+    <Compile Include="Dependencies\SharpFont\OpenFlags.cs" />
+    <Compile Include="Dependencies\SharpFont\OpenTypeValidationFlags.cs" />
+    <Compile Include="Dependencies\SharpFont\Orientation.cs" />
+    <Compile Include="Dependencies\SharpFont\Outline.cs" />
+    <Compile Include="Dependencies\SharpFont\OutlineFlags.cs" />
+    <Compile Include="Dependencies\SharpFont\OutlineFuncs.cs" />
+    <Compile Include="Dependencies\SharpFont\OutlineGlyph.cs" />
+    <Compile Include="Dependencies\SharpFont\Parameter.cs" />
+    <Compile Include="Dependencies\SharpFont\ParamTag.cs" />
+    <Compile Include="Dependencies\SharpFont\PInvokeHelper.cs" />
+    <Compile Include="Dependencies\SharpFont\PixelMode.cs" />
+    <Compile Include="Dependencies\SharpFont\PostScript\BlendFlags.cs" />
+    <Compile Include="Dependencies\SharpFont\PostScript\DictionaryKeys.cs" />
+    <Compile Include="Dependencies\SharpFont\PostScript\EncodingType.cs" />
+    <Compile Include="Dependencies\SharpFont\PostScript\FaceDict.cs" />
+    <Compile Include="Dependencies\SharpFont\PostScript\FaceInfo.cs" />
+    <Compile Include="Dependencies\SharpFont\PostScript\FontInfo.cs" />
+    <Compile Include="Dependencies\SharpFont\PostScript\Internal\FaceDictRec.cs" />
+    <Compile Include="Dependencies\SharpFont\PostScript\Internal\FaceInfoRec.cs" />
+    <Compile Include="Dependencies\SharpFont\PostScript\Internal\FontInfoRec.cs" />
+    <Compile Include="Dependencies\SharpFont\PostScript\Internal\PrivateRec.cs" />
+    <Compile Include="Dependencies\SharpFont\PostScript\Private.cs" />
+    <Compile Include="Dependencies\SharpFont\Raster.cs" />
+    <Compile Include="Dependencies\SharpFont\RasterFlags.cs" />
+    <Compile Include="Dependencies\SharpFont\RasterFuncs.cs" />
+    <Compile Include="Dependencies\SharpFont\RasterParams.cs" />
+    <Compile Include="Dependencies\SharpFont\Renderer.cs" />
+    <Compile Include="Dependencies\SharpFont\RendererClass.cs" />
+    <Compile Include="Dependencies\SharpFont\RenderMode.cs" />
+    <Compile Include="Dependencies\SharpFont\SizeMetrics.cs" />
+    <Compile Include="Dependencies\SharpFont\SizeRequest.cs" />
+    <Compile Include="Dependencies\SharpFont\SizeRequestType.cs" />
+    <Compile Include="Dependencies\SharpFont\Span.cs" />
+    <Compile Include="Dependencies\SharpFont\StreamDesc.cs" />
+    <Compile Include="Dependencies\SharpFont\Stroker.cs" />
+    <Compile Include="Dependencies\SharpFont\StrokerBorder.cs" />
+    <Compile Include="Dependencies\SharpFont\StrokerLineCap.cs" />
+    <Compile Include="Dependencies\SharpFont\StrokerLineJoin.cs" />
+    <Compile Include="Dependencies\SharpFont\StyleFlags.cs" />
+    <Compile Include="Dependencies\SharpFont\SubGlyph.cs" />
+    <Compile Include="Dependencies\SharpFont\SubGlyphFlags.cs" />
+    <Compile Include="Dependencies\SharpFont\TrueTypeValidationFlags.cs" />
+    <Compile Include="Dependencies\SharpFont\TrueType\EncodingId.cs" />
+    <Compile Include="Dependencies\SharpFont\TrueType\EngineType.cs" />
+    <Compile Include="Dependencies\SharpFont\TrueType\Header.cs" />
+    <Compile Include="Dependencies\SharpFont\TrueType\HoriHeader.cs" />
+    <Compile Include="Dependencies\SharpFont\TrueType\Internal\HeaderRec.cs" />
+    <Compile Include="Dependencies\SharpFont\TrueType\Internal\HoriHeaderRec.cs" />
+    <Compile Include="Dependencies\SharpFont\TrueType\Internal\MaxProfileRec.cs" />
+    <Compile Include="Dependencies\SharpFont\TrueType\Internal\OS2Rec.cs" />
+    <Compile Include="Dependencies\SharpFont\TrueType\Internal\PCLTRec.cs" />
+    <Compile Include="Dependencies\SharpFont\TrueType\Internal\PostscriptRec.cs" />
+    <Compile Include="Dependencies\SharpFont\TrueType\Internal\SfntNameRec.cs" />
+    <Compile Include="Dependencies\SharpFont\TrueType\Internal\VertHeaderRec.cs" />
+    <Compile Include="Dependencies\SharpFont\TrueType\MaxProfile.cs" />
+    <Compile Include="Dependencies\SharpFont\TrueType\OS2.cs" />
+    <Compile Include="Dependencies\SharpFont\TrueType\Pclt.cs" />
+    <Compile Include="Dependencies\SharpFont\TrueType\PlatformId.cs" />
+    <Compile Include="Dependencies\SharpFont\TrueType\Postscript.cs" />
+    <Compile Include="Dependencies\SharpFont\TrueType\SfntName.cs" />
+    <Compile Include="Dependencies\SharpFont\TrueType\SfntTag.cs" />
+    <Compile Include="Dependencies\SharpFont\TrueType\VertHeader.cs" />
+    <Compile Include="Entities\IColorable.cs" />
+    <Compile Include="Entities\IRenderable.cs" />
+    <Compile Include="Graphics\Blendings\BlendMode.cs" />
+    <Compile Include="Graphics\Blendings\Equation.cs" />
+    <Compile Include="Graphics\Blendings\Factor.cs" />
+    <Compile Include="Graphics\Texts\Font.cs" />
+    <Compile Include="Graphics\Texts\Glyph.cs" />
+    <Compile Include="Graphics\Texts\Page.cs" />
+    <Compile Include="Graphics\Texts\Row.cs" />
+    <Compile Include="Graphics\Texts\Text.cs" />
+    <Compile Include="Graphics\Shapes\Circle.cs" />
+    <Compile Include="Graphics\Shapes\Polygon.cs" />
+    <Compile Include="Graphics\Shapes\Rectangle.cs" />
+    <Compile Include="Graphics\Shapes\Shape.cs" />
+    <Compile Include="Graphics\Sprite.cs" />
+    <Compile Include="Graphics\Transformable.cs" />
+    <Compile Include="Internal\AL\ALChecker.cs" />
+    <Compile Include="Audio\Music.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Context.cs" />
+    <Compile Include="Graphics\PrimitiveType.cs" />
+    <Compile Include="Graphics\Renderers\IRendererImplementation.cs" />
+    <Compile Include="Graphics\Renderers\LegacyRenderer.cs" />
+    <Compile Include="Graphics\Renderers\VertexArrayRenderer.cs" />
+    <Compile Include="Graphics\Renderers\VertexBufferRenderer.cs" />
+    <Compile Include="Graphics\RenderStates.cs" />
+    <Compile Include="Graphics\RenderTarget.cs" />
+    <Compile Include="Graphics\Shaders\Shader.cs" />
+    <Compile Include="Graphics\Shaders\ShaderEventArgs.cs" />
+    <Compile Include="Graphics\Shaders\ShaderType.cs" />
+    <Compile Include="Graphics\Shaders\UniformBinder.cs" />
+    <Compile Include="Graphics\Texture.cs" />
+    <Compile Include="Systems\Vectors\VectorExtensions.cs" />
+    <Compile Include="Systems\Vectors\Vector2.cs" />
+    <Compile Include="Systems\Vectors\Vector3.cs" />
+    <Compile Include="Systems\Vectors\Vector4.cs" />
+    <Compile Include="Graphics\Vertex.cs" />
+    <Compile Include="Graphics\VertexArray.cs" />
+    <Compile Include="Graphics\View.cs" />
+    <Compile Include="Input\EventArgs\EventHandler.cs" />
+    <Compile Include="Input\EventArgs\MouseButtonEventArgs.cs" />
+    <Compile Include="Input\EventArgs\MouseWheelEventArgs.cs" />
+    <Compile Include="Input\EventArgs\KeyboardKeyEventArgs.cs" />
+    <Compile Include="Input\Keyboard.cs" />
+    <Compile Include="Input\KeyEnum.cs" />
+    <Compile Include="Input\EventArgs\KeyboardPressEventArgs.cs" />
+    <Compile Include="Input\Mouse.cs" />
+    <Compile Include="Input\MouseEnum.cs" />
+    <Compile Include="Input\EventArgs\MouseMoveEventArgs.cs" />
+    <Compile Include="Internal\GL\GLChecker.cs" />
+    <Compile Include="Internal\GL\GLExtensions.cs" />
+    <Compile Include="Internal\IntPtrExtensions.cs" />
+    <Compile Include="Utilities\DpiCalc.cs" />
+    <Compile Include="Utilities\Logger.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Window\EventArgs\EventHandler.cs" />
+    <Compile Include="Window\EventArgs\FrameEventArgs.cs" />
+    <Compile Include="Window\EventArgs\RenderFrameArgs.cs" />
+    <Compile Include="Window\EventArgs\UpdateFrameArgs.cs" />
+    <Compile Include="Window\RenderWindow.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Genode.dll.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\costura32\openal32.dll" />
+    <EmbeddedResource Include="Resources\costura64\openal32.dll" />
+    <EmbeddedResource Include="Resources\costura64\freetype6.dll" />
+    <EmbeddedResource Include="Resources\costura32\freetype6.dll" />
+    <Content Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\Dependencies\Packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\..\Dependencies\Packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\Dependencies\Packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Dependencies\Packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

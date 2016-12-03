@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Genode", "Genode\Genode.csproj", "{E128B48A-8D03-432C-8630-1FB587252FB9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{207C14C2-FBBC-45C7-A035-1FF89AA07233}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\nuget.config = .nuget\nuget.config
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E128B48A-8D03-432C-8630-1FB587252FB9}.Debug|x64.ActiveCfg = Debug|x64
+		{E128B48A-8D03-432C-8630-1FB587252FB9}.Debug|x64.Build.0 = Debug|x64
+		{E128B48A-8D03-432C-8630-1FB587252FB9}.Debug|x86.ActiveCfg = Debug|x86
+		{E128B48A-8D03-432C-8630-1FB587252FB9}.Debug|x86.Build.0 = Debug|x86
+		{E128B48A-8D03-432C-8630-1FB587252FB9}.Release|x64.ActiveCfg = Release|x64
+		{E128B48A-8D03-432C-8630-1FB587252FB9}.Release|x64.Build.0 = Release|x64
+		{E128B48A-8D03-432C-8630-1FB587252FB9}.Release|x86.ActiveCfg = Release|x86
+		{E128B48A-8D03-432C-8630-1FB587252FB9}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Weavers>
+  <Costura Unmanaged32Assemblies='freetype6'
+           Unmanaged64Assemblies='freetype6'/>
+</Weavers>
