@@ -60,53 +60,31 @@ namespace Genode.Graphics
         /// <summary>
         /// Upload the Vertices into Buffer Data.
         /// </summary>
-        public unsafe void Update(Vertex[] vertices)
+        public void Update(Vertex[] vertices)
         {
             // Assign vertices information
             _vertices = vertices;
             _length   = vertices.Length;
 
             // Pin the vertices, prevent GC wipe this pointer
-            var handle     = GCHandle.Alloc(_vertices, GCHandleType.Pinned);
-            var pointer    = handle.AddrOfPinnedObject();
-
-            // Calculate the stride and upload the vertices
-            var stride = Vertex.Stride;
-            GL.VertexPointer(2, VertexPointerType.Float, stride,
-                pointer.Increment(0));
-            GLChecker.CheckError();
-
-            GL.TexCoordPointer(2, TexCoordPointerType.Float, stride,
-                pointer.Increment(8));
-            GLChecker.CheckError();
-
-            GL.ColorPointer(4, ColorPointerType.UnsignedByte, stride,
-                pointer.Increment(16));
-            GLChecker.CheckError();
-            handle.Free();
-
-            /* Upload the vertices
-             * This version is pinning the vertices temporary
-             * GC will wipe the pointer few milliseconds later
-             * Resulting the rendered object disappear immediately after being drawn
-             * Use following codes only for future references
-            fixed (Vertex* data = _vertices)
+            using (var memory = new MemoryLock(_vertices))
             {
+                var pointer = memory.Address;
+
                 // Calculate the stride and upload the vertices
                 var stride = Vertex.Stride;
                 GL.VertexPointer(2, VertexPointerType.Float, stride,
-                    new IntPtr(data).Increment(0));
+                    pointer.Increment(0));
+                GLChecker.CheckError();
 
                 GL.TexCoordPointer(2, TexCoordPointerType.Float, stride,
-                    new IntPtr(data).Increment(8));
+                    pointer.Increment(8));
                 GLChecker.CheckError();
 
                 GL.ColorPointer(4, ColorPointerType.UnsignedByte, stride,
-                    new IntPtr(data).Increment(16));
+                    pointer.Increment(16));
                 GLChecker.CheckError();
-                //}
             }
-            */
         }
 
         /// <summary>
