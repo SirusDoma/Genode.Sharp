@@ -82,18 +82,18 @@ namespace Genode.Audio
         /// <summary>
         /// Request a new chunk of audio samples from the stream source.
         /// </summary>
-        /// <param name="data">The <see cref="AudioChunk"/> that contains audio samples.</param>
+        /// <param name="samples">The audio chunk that contains audio samples.</param>
         /// <returns><code>true</code> if reach the end of stream, otherwise false.</returns>
-        protected override bool OnGetChunk(out AudioChunk data)
+        protected override bool OnGetData(short[] samples)
         {
             lock (_mutex)
             {
                 // Fill the chunk parameters
                 long count = _reader.Read(_samples, _samples.Length);
-                data = new AudioChunk(_samples);
+                samples    = _samples;
                 
                 // Check if we have reached the end of the audio file
-                return count == _samples.Length;
+                return count == samples.Length;
             }
         }
 

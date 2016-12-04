@@ -75,7 +75,6 @@
     <Compile Include="Audio\Reader\SoundReader.cs" />
     <Compile Include="Audio\Sound.cs" />
     <Compile Include="Audio\SoundBuffer.cs" />
-    <Compile Include="Audio\Stream\AudioChunk.cs" />
     <Compile Include="Audio\Stream\SoundStream.cs" />
     <Compile Include="Audio\Source\SoundSource.cs" />
     <Compile Include="Audio\Source\SourceStatus.cs" />

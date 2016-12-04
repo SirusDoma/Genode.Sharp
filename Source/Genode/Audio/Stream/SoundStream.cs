@@ -16,8 +16,9 @@ namespace Genode.Audio
     /// </summary>
     public abstract class SoundStream : SoundSource
     {
-        private const int BUFFER_COUNT = 3;
-        private readonly object _mutex = new object();
+        private const int BUFFER_COUNT   = 3;
+        private const int BUFFER_RETRIES = 2;
+        private readonly object _mutex   = new object();
 
         private Thread   _thread;
         private Status   _state        = Status.Stopped;
@@ -275,47 +276,61 @@ namespace Genode.Audio
             ALChecker.Check(() => AL.DeleteBuffers(_buffers));
         }
 
-        private bool FillAndPushBuffer(int bufferNum)
+        private bool FillAndPushBuffer(int bufferNum, bool immediateLoop = false)
         {
             bool requestStop = false;
 
             // Acquire audio data
-            AudioChunk data = null;
-            if (!OnGetChunk(out data))
+            short[] samples = null;
+            for (int retryCount = 0; !OnGetData(samples) && (retryCount < BUFFER_RETRIES); ++retryCount)
             {
                 // Mark the buffer as the last one (so that we know when to reset the playing position)
                 _endBuffers[bufferNum] = true;
 
                 // Check if the stream must loop or stop
-                if (_loop)
-                {
-                    // Return to the beginning of the stream source
-                    OnSeek(TimeSpan.Zero);
-
-                    // If we previously had no data, try to fill the buffer once again
-                    if (data.Samples == null || (data.Samples.Length == 0))
-                    {
-                        return FillAndPushBuffer(bufferNum);
-                    }
-                }
-                else
+                if (!_loop)
                 {
                     // Not looping: request stop
                     requestStop = true;
+                    break;
                 }
+
+                // Return to the beginning of the stream source
+                OnSeek(TimeSpan.Zero);
+
+                // If we got data, break and process it, else try to fill the buffer once again
+                if (samples != null && (samples.Length > 0))
+                {
+                    break;
+                }
+
+                // If immediateLoop is specified, we have to immediately adjust the sample count
+                if (immediateLoop)
+                {
+                    // We just tried to begin preloading at EOF: reset the sample count
+                    _processed = 0;
+                    _endBuffers[bufferNum] = false;
+                }
+
+                // We're a looping sound that got no data, so we retry onGetData()
             }
 
             // Fill the buffer if some data was returned
-            if (data.Samples != null && data.Samples.Length > 0)
+            if (samples != null && samples.Length > 0)
             {
                 int buffer = _buffers[bufferNum];
 
                 // Fill the buffer
-                int size = data.Samples.Length * sizeof(short);
-                ALChecker.Check(() => AL.BufferData(buffer, _format, data.Samples, size, _sampleRate));
+                int size = samples.Length * sizeof(short);
+                ALChecker.Check(() => AL.BufferData(buffer, _format, samples, size, _sampleRate));
 
                 // Push it into the sound queue
                 ALChecker.Check(() => AL.SourceQueueBuffer(Handle, buffer));
+            }
+            else
+            {
+                // If we get here, we most likely ran out of retries
+                requestStop = true;
             }
 
             return requestStop;
@@ -327,7 +342,7 @@ namespace Genode.Audio
             bool requestStop = false;
             for (int i = 0; (i < BUFFER_COUNT) && !requestStop; ++i)
             {
-                if (FillAndPushBuffer(i))
+                if (FillAndPushBuffer(i, (i == 0)))
                     requestStop = true;
             }
 
@@ -349,9 +364,9 @@ namespace Genode.Audio
         /// <summary>
         /// Request a new chunk of audio samples from the stream source.
         /// </summary>
-        /// <param name="data">The <see cref="AudioChunk"/> that contains audio samples.</param>
+        /// <param name="samples">The audio chunk that contains audio samples.</param>
         /// <returns><code>true</code> if reach the end of stream, otherwise false.</returns>
-        protected abstract bool OnGetChunk(out AudioChunk data);
+        protected abstract bool OnGetData(short[] samples);
 
         /// <summary>
         /// Change the current playing position in the stream source.
@@ -366,12 +381,16 @@ namespace Genode.Audio
         /// <param name="sampleRate">The sample rate, in samples per second.</param>
         protected virtual void Initialize(int channelCount, int sampleRate)
         {
+            // Reset the current states
             _channelCount = channelCount;
             _sampleRate   = sampleRate;
+            _processed    = 0;
+            _isStreaming  = false;
 
             // Deduce the format from the number of channels
             _format = AudioDevice.GetFormat(channelCount);
 
+            // Check if the format is valid
             if (_format == 0)
             {
                 throw new NotSupportedException("The specified number of channels (" + _channelCount.ToString() + ") is not supported.");
