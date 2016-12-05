@@ -14,7 +14,7 @@ namespace Genode.Audio
 
         private SoundReader _reader;
         private TimeSpan    _duration;
-        private short[]     _samples;
+        private int         _sampleCount;
         private SampleInfo  _info;
 
         /// <summary>
@@ -34,9 +34,9 @@ namespace Genode.Audio
         public Music()
             : base()
         {
-            _reader   = null;
-            _samples  = new short[0];
-            _duration = TimeSpan.Zero;
+            _reader      = null;
+            _sampleCount = 0;
+            _duration    = TimeSpan.Zero;
 
         }
 
@@ -89,9 +89,9 @@ namespace Genode.Audio
             lock (_mutex)
             {
                 // Fill the chunk parameters
-                long count = _reader.Read(_samples, _samples.Length);
-                samples    = _samples;
-                
+                samples    = new short[_sampleCount];
+                long count = _reader.Read(samples, samples.Length);
+
                 // Check if we have reached the end of the audio file
                 return count == samples.Length;
             }
@@ -117,8 +117,8 @@ namespace Genode.Audio
             // Compute the music duration
             _duration = TimeSpan.FromSeconds(_info.SampleCount / channelCount / sampleRate);
 
-            // Resize the internal buffer so that it can contain 1 second of audio samples
-            _samples = new short[sampleRate * channelCount];
+            // Set the internal buffer size so that it can contain 1 second of audio samples
+            _sampleCount = sampleRate * channelCount;
 
             // Initialize the stream
             base.Initialize(channelCount, sampleRate);
