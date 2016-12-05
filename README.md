@@ -29,9 +29,9 @@ Some codes, structures and logics are changed to fit C# language, OpenTK (OpenGL
 --------------------------------------------------------------------------------------------------
 
 ## Compiling the Project ##
-By default, the project target framework is targeted to .NET 2.0 to ensure maximum backward compatibility against old hardware and / or old projects targeted to old framework.  
+By default, the project target framework is targeted to .NET 2.0 to ensure maximum backward compatibility against old hardware and / or old projects targeted to old framework. This framework is incompatible with .NET Core since it relies on `System.Drawing`. Also, OpenTK has not officially supported .NET Core.  
 
-It is may required to configure the Build Configuration Platform (`x86`/`x64`) of target application to match the library configuration. Avoid using `Any CPU` platform, because this framework uses native external dependency (e.g: the engine may fail when deciding which version of `openal32.dll` to use).  
+It is required to configure the Build Configuration Platform (`x86`/`x64`) of target application to match the library configuration. Avoid using `Any CPU` platform, because this framework uses native external dependencies (e.g: the engine may fail when deciding which version of `openal32.dll` to use).  
 
 This project also make a use of [Fody Costura](https://github.com/Fody/Costura/) to embed native dependencies on Windows. 
 It may not work against Mono Environment (Linux / OSX) so it is required to configure Fody.Costura to exclude all dependencies or uninstall the Fody.Costura itself before compiling the project on Linux or OSX.  
