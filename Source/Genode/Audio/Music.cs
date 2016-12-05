@@ -84,7 +84,7 @@ namespace Genode.Audio
         /// </summary>
         /// <param name="samples">The audio chunk that contains audio samples.</param>
         /// <returns><code>true</code> if reach the end of stream, otherwise false.</returns>
-        protected override bool OnGetData(short[] samples)
+        protected override bool OnGetData(out short[] samples)
         {
             lock (_mutex)
             {

@@ -282,7 +282,7 @@ namespace Genode.Audio
 
             // Acquire audio data
             short[] samples = null;
-            for (int retryCount = 0; !OnGetData(samples) && (retryCount < BUFFER_RETRIES); ++retryCount)
+            for (int retryCount = 0; !OnGetData(out samples) && (retryCount < BUFFER_RETRIES); ++retryCount)
             {
                 // Mark the buffer as the last one (so that we know when to reset the playing position)
                 _endBuffers[bufferNum] = true;
@@ -366,7 +366,7 @@ namespace Genode.Audio
         /// </summary>
         /// <param name="samples">The audio chunk that contains audio samples.</param>
         /// <returns><code>true</code> if reach the end of stream, otherwise false.</returns>
-        protected abstract bool OnGetData(short[] samples);
+        protected abstract bool OnGetData(out short[] samples);
 
         /// <summary>
         /// Change the current playing position in the stream source.
