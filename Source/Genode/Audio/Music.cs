@@ -92,8 +92,11 @@ namespace Genode.Audio
                 samples    = new short[_sampleCount];
                 long count = _reader.Read(samples, samples.Length);
 
+                // Remove the gap when processing last buffer
+                Array.Resize(ref samples, (int)count);
+
                 // Check if we have reached the end of the audio file
-                return count == samples.Length;
+                return count == _sampleCount;
             }
         }
 

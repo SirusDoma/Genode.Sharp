@@ -16,20 +16,20 @@ namespace Genode.Audio
     /// </summary>
     public abstract class SoundStream : SoundSource
     {
-        private const int BUFFER_COUNT   = 3;
+        private const int BUFFER_COUNT = 3;
         private const int BUFFER_RETRIES = 2;
-        private readonly object _mutex   = new object();
+        private readonly object _mutex = new object();
 
-        private Thread   _thread;
-        private Status   _state        = Status.Stopped;
-        private bool     _isStreaming  = false;
-        private int[]    _buffers      = new int[BUFFER_COUNT];
-        private int      _channelCount = 0;
-        private int      _sampleRate   = 0;
-        private ALFormat _format       = 0;
-        private bool     _loop         = false;
-        private long     _processed    = 0;
-        private bool[]   _endBuffers   = new bool[BUFFER_COUNT];
+        private Thread _thread;
+        private Status _state = Status.Stopped;
+        private bool _isStreaming = false;
+        private int[] _buffers = new int[BUFFER_COUNT];
+        private int _channelCount = 0;
+        private int _sampleRate = 0;
+        private ALFormat _format = 0;
+        private bool _loop = false;
+        private long _processed = 0;
+        private bool[] _endBuffers = new bool[BUFFER_COUNT];
 
         /// <summary>
         /// Gets the number of channels used by current <see cref="SoundStream"/> object.
@@ -81,7 +81,7 @@ namespace Genode.Audio
                 {
                     float seconds = 0f;
                     ALChecker.Check(() => AL.GetSource(Handle, ALSourcef.SecOffset, out seconds));
-                    
+
                     return TimeSpan.FromSeconds(seconds + (float)(_processed) / _sampleRate / _channelCount);
                 }
                 else
@@ -106,7 +106,7 @@ namespace Genode.Audio
                 if (oldStatus == Status.Stopped)
                     return;
 
-                _state       = oldStatus;
+                _state = oldStatus;
                 _isStreaming = true;
                 _thread.Start();
             }
@@ -126,7 +126,7 @@ namespace Genode.Audio
         public override bool IsLooping
         {
             get { return _loop; }
-            set { _loop = value;}
+            set { _loop = value; }
         }
 
         /// <summary>
@@ -196,7 +196,7 @@ namespace Genode.Audio
                     else
                     {
                         // End streaming
-                        lock(_mutex)
+                        lock (_mutex)
                             _isStreaming = false;
                     }
                 }
@@ -204,7 +204,7 @@ namespace Genode.Audio
                 // Get the number of buffers that have been processed (i.e. ready for reuse)
                 int nbProcessed = 0;
                 ALChecker.Check(() => AL.GetSource(Handle, ALGetSourcei.BuffersProcessed, out nbProcessed));
-                
+
 
                 while (nbProcessed-- > 0)
                 {
@@ -371,9 +371,9 @@ namespace Genode.Audio
         {
             // Reset the current states
             _channelCount = channelCount;
-            _sampleRate   = sampleRate;
-            _processed    = 0;
-            _isStreaming  = false;
+            _sampleRate = sampleRate;
+            _processed = 0;
+            _isStreaming = false;
 
             // Deduce the format from the number of channels
             _format = AudioDevice.GetFormat(channelCount);
@@ -403,9 +403,8 @@ namespace Genode.Audio
             lock (_mutex)
             {
                 isStreaming = _isStreaming;
-                state       = _state;
+                state = _state;
             }
-
 
             if (isStreaming && (state == Status.Paused))
             {
