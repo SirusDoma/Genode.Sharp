@@ -23,16 +23,6 @@ namespace Genode.Window
     /// </summary>
     public class RenderWindow : RenderTarget, IDisposable
     {
-        /// <summary>
-        /// Represents the border of <see cref="RenderWindow"/>.
-        /// </summary>
-        public enum BorderStyle
-        {
-            Fixed = 1,
-            Hidden = 2,
-            Resizable = 0
-        }
-
         private static List<RenderWindow> instances = new List<RenderWindow>();
 
         /// <summary>

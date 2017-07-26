@@ -305,6 +305,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Systems\MemoryLock.cs" />
+    <Compile Include="Window\BorderStyle.cs" />
     <Compile Include="Window\Context.cs" />
     <Compile Include="Graphics\PrimitiveType.cs" />
     <Compile Include="Graphics\Renderers\IRendererImplementation.cs" />
