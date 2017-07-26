@@ -12,17 +12,29 @@ namespace Genode.Graphics
         /// <summary>
         /// Gets a value indicating whether the <see cref="Shader"/> operation is executed successfully.
         /// </summary>
-        public bool IsSuccess { get; private set; }
+        public bool IsSuccess
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Gets the status code of shader compilation.
         /// </summary>
-        public int StatusCode { get; private set; }
+        public int StatusCode
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Gets the message of the corresponding event.
         /// </summary>
-        public string Message { get; private set; }
+        public string Message
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ShaderEventArgs"/> class.
